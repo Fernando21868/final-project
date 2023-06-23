@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Meal List</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/meal-list.js" type="module"></script>
+  </head>
+  <body>
+    <header class="divider" id="main-header"></header>
+    <main class="divider">
+      <div class="form-list">
+        <form name="formSearchBy" class="form-list__form">
+          <input type="text" class="form-list__input" placeholder="" />
+          <button id="formSearchSubmit" type="submit" class="form-list__button">
+            Search by
+          </button>
+        </form>
+      </div>
+      <div class="list-meal">
+        <ul class="search-category__list"></ul>
+      </div>
+    </main>
+    <!--Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal__content">
+        <span class="modal__close">&#10006;</span>
+        <div class="modal__header">
+          <div class="modal__title"></div>
+        </div>
+        <div class="modal__info"></div>
+      </div>
+    </div>
+    <footer id="main-footer"></footer>
+  </body>
+</html>
