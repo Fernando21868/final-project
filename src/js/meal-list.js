@@ -21,7 +21,8 @@ function mealListTemplate(meal) {
     />
     <h2 class="search-category__title">${meal.strMeal}</h2>
     <div class="search-category__button">
-      <button class="search-category__btn" data-id="${meal.idMeal}" >Search</button>
+      <button class="search-category__btn" data-id="${meal.idMeal}" >Quick view</button>
+      <a class="search-category__detail" data-id="${meal.idMeal}" href="/meal-detail/index.html?id=${meal.idMeal}">Detail</a>
     </div>
   </li>
   `;
@@ -46,6 +47,7 @@ async function listOfMeals() {
     setParam("category", categoryParam);
     setParam("list", listParam);
   }
+  document.querySelector(".form-list__title").textContent = `Search by ${categoryParam}`
   mealListInput.setAttribute("placeHolder", listParam);
   renderListWithTemplate(mealListTemplate, mealListElement, listMeals);
   quickView();
@@ -74,12 +76,11 @@ async function modalTemplate(meal) {
   let modalInfoContent = `
     <img class="modal__img" src="${mealInfo.strMealThumb}" alt="${mealInfo.strMeal}">
     <div class="modal__categories">
-      <span class="modal__category">${mealInfo.strArea}</span>
-      <span class="modal__category">${mealInfo.strCategory}</span>
+      <span class="modal__category">Area: ${mealInfo.strArea}</span>
+      <span class="modal__category">Category: ${mealInfo.strCategory}</span>
     </div>
     <p class="modal__instructions">${mealInfo.strInstructions}</p>
-    <p>Source: <a href="${mealInfo.strSource}" class="modal__source">${mealInfo.strMeal}</a></p>
-    
+    <p>Source: <a target="_blank" href="${mealInfo.strSource}" class="modal__source">${mealInfo.strMeal}</a></p>
   `;
   modalInfo.innerHTML = modalInfoContent;
 }
@@ -94,6 +95,7 @@ function quickView() {
       let modal = document.getElementById("myModal");
       modal.style.display = "block";
       const product = await findProductById(dataId);
+      console.log(product[0]);
       modalTemplate(product[0]);
 
       document.querySelector(".modal__close").addEventListener("click", () => {
