@@ -230,7 +230,7 @@ button:hover {
 }
 .search-category__detail:hover {
   background-color: #ece75f;
-  color: #303030;
+  color: #303030 !important;
 }
 
 .form-list {
@@ -292,7 +292,8 @@ button:hover {
   overflow: hidden;
   height: 100%;
   max-height: 700px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
   border: 1px solid var(--light-grey);
   box-shadow: 1px 1px 4px var(--dark-grey);
 }
@@ -302,16 +303,20 @@ button:hover {
   padding: 15px;
   text-align: center;
 }
-.modal__close {
+.modal__close,
+.favorites-meal__close {
   position: absolute;
   right: 20px;
   top: 10px;
   color: #d0d0d0;
   cursor: pointer;
   font-size: var(--large-font);
+  transition: all 0.2s ease-in;
 }
 .modal__close:hover,
-.modal__close:focus {
+.modal__close:focus,
+.favorites-meal__close:hover,
+.favorites-meal__close:focus {
   color: #ffffff;
   cursor: pointer;
 }
@@ -415,6 +420,7 @@ button:hover {
   margin: 0.5rem;
 }
 .favorites-meal__item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -469,6 +475,13 @@ button:hover {
 }
 .search-category__detail.favorite {
   text-decoration: none;
+}
+
+.search-category__detail.home{
+  text-decoration: none;
+}
+.search-category__detail.home:hover{
+  color: #303030 !important;
 }
 
 @media only screen and (min-width: 500px) {

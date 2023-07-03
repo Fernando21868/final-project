@@ -3,6 +3,7 @@ import {
   alertMessage,
   getLocalStorage,
   getParam,
+  iconFavorites,
   loadHeaderFooter,
   setLocalStorage,
 } from "./utils.mjs";
@@ -64,11 +65,11 @@ function addToFavorite() {
   if (!favorites) {
     favorites = [];
   }
-  
+
   const existingMealIndex = favorites.findIndex(
     (favorite) => favorite.idMeal === meal[0].idMeal
   );
-  
+
   if (existingMealIndex !== -1) {
     return;
   } else {
@@ -77,6 +78,7 @@ function addToFavorite() {
 
   setLocalStorage("favorites", favorites);
   alertMessage("Meal added successfully to favorites!");
+  iconFavorites();
 }
 
 renderMealDetail();
@@ -86,3 +88,7 @@ document
   .addEventListener("click", addToFavorite);
 
 loadHeaderFooter();
+
+setTimeout(() => {
+  iconFavorites();
+}, 200);

@@ -2,9 +2,13 @@ import {
   filterByAreaIngredientCategory,
   listAllCategories,
 } from "./productData.mjs";
-import { loadHeaderFooter, renderListWithTemplate } from "./utils.mjs";
+import { iconFavorites, loadHeaderFooter, renderListWithTemplate } from "./utils.mjs";
 
 loadHeaderFooter()
+
+setTimeout(() => {
+  iconFavorites();
+}, 200);
 
 function returnRandomListItem(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -63,7 +67,6 @@ async function returnRandomItemsCIA() {
 async function mealList() {
   let el = document.querySelector(".search-category__list");
   const products = await returnRandomItemsCIA();
-  console.log(products);
   renderListWithTemplate(productCardTemplate, el, products);
 }
 

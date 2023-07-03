@@ -26,3 +26,9 @@ export async function filterByAreaIngredientCategory(param, area) {
   const product = await convertToJson(response);
   return product.meals;
 }
+
+export async function filterMealByName(name) {
+  const response = await fetch(baseURL + `search.php?s=${name}`);
+  const product = await convertToJson(response);
+  return product.meals;
+}

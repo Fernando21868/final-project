@@ -1,9 +1,11 @@
 import {
   filterByAreaIngredientCategory,
+  filterMealByName,
   findProductById,
 } from "./productData.mjs";
 import {
   getParam,
+  iconFavorites,
   loadHeaderFooter,
   renderListWithTemplate,
   setParam,
@@ -31,23 +33,32 @@ function mealListTemplate(meal) {
 async function listOfMeals() {
   let mealListElement = document.querySelector(".search-category__list");
   const mealListInput = document.querySelector(".form-list__input");
-  let categoryParamLetter = categoryParam[0].toLocaleLowerCase();
-  let listMeals = await filterByAreaIngredientCategory(
-    categoryParamLetter,
-    listParam
-  );
-  if (!listMeals) {
-    categoryParam = "Ingredient";
-    listParam = "Chicken";
-    categoryParamLetter = categoryParam[0].toLocaleLowerCase();
+  let listMeals;
+  if (getParam("name")) {
+    categoryParam = "Name";
+    listParam = "Name";
+    listMeals = await filterByAreaIngredientCategory("i", "Chicken");
+  } else {
+    let categoryParamLetter = categoryParam[0].toLocaleLowerCase();
     listMeals = await filterByAreaIngredientCategory(
       categoryParamLetter,
       listParam
     );
-    setParam("category", categoryParam);
-    setParam("list", listParam);
+    if (!listMeals) {
+      categoryParam = "Ingredient";
+      listParam = "Chicken";
+      categoryParamLetter = categoryParam[0].toLocaleLowerCase();
+      listMeals = await filterByAreaIngredientCategory(
+        categoryParamLetter,
+        listParam
+      );
+      setParam("category", categoryParam);
+      setParam("list", listParam);
+    }
   }
-  document.querySelector(".form-list__title").textContent = `Search by ${categoryParam}`
+  document.querySelector(
+    ".form-list__title"
+  ).textContent = `Search by ${categoryParam}`;
   mealListInput.setAttribute("placeHolder", listParam);
   renderListWithTemplate(mealListTemplate, mealListElement, listMeals);
   quickView();
@@ -55,14 +66,19 @@ async function listOfMeals() {
 // http://localhost:5173/meal-list/index.html?category=Ingredient&list=Vermicelli%20Pasta
 async function searchMeal(e) {
   e.preventDefault();
+  let listMeals;
   const categoryParamLetter = categoryParam[0].toLocaleLowerCase();
   const inputValue = document.querySelector(".form-list__input").value;
   let mealListElement = document.querySelector(".search-category__list");
   if (inputValue.trim()) {
-    const listMeals = await filterByAreaIngredientCategory(
-      categoryParamLetter,
-      inputValue
-    );
+    if (categoryParamLetter !== "n") {
+      listMeals = await filterByAreaIngredientCategory(
+        categoryParamLetter,
+        inputValue
+      );
+    } else {
+      listMeals = await filterMealByName(inputValue);
+    }
     renderListWithTemplate(mealListTemplate, mealListElement, listMeals);
   }
 }
@@ -113,3 +129,7 @@ function quickView() {
 listOfMeals();
 
 loadHeaderFooter();
+
+setTimeout(() => {
+  iconFavorites();
+}, 200);
