@@ -2,9 +2,13 @@ import {
   filterByAreaIngredientCategory,
   listAllCategories,
 } from "./productData.mjs";
-import { iconFavorites, loadHeaderFooter, renderListWithTemplate } from "./utils.mjs";
+import {
+  iconFavorites,
+  loadHeaderFooter,
+  renderListWithTemplate,
+} from "./utils.mjs";
 
-loadHeaderFooter()
+loadHeaderFooter();
 
 setTimeout(() => {
   iconFavorites();
@@ -33,7 +37,7 @@ async function getRandomItem(category, categoryOption) {
     const [randomCategory] = await returnRandomCIA();
     randomItem = await filterByAreaIngredientCategory(category, randomCategory);
   }
-  return returnRandomListItem(randomItem)
+  return returnRandomListItem(randomItem);
 }
 
 async function returnRandomItemsCIA() {

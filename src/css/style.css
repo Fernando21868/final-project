@@ -306,7 +306,7 @@ button:hover {
 .modal__close,
 .favorites-meal__close {
   position: absolute;
-  right: 20px;
+  right: 10px;
   top: 10px;
   color: #d0d0d0;
   cursor: pointer;
@@ -473,14 +473,17 @@ button:hover {
   padding: 0.5rem;
   width: 100%;
 }
+.favorites-meal__title {
+  padding: 0 0.5rem;
+}
 .search-category__detail.favorite {
   text-decoration: none;
 }
 
-.search-category__detail.home{
+.search-category__detail.home {
   text-decoration: none;
 }
-.search-category__detail.home:hover{
+.search-category__detail.home:hover {
   color: #303030 !important;
 }
 

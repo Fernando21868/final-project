@@ -111,7 +111,6 @@ function quickView() {
       let modal = document.getElementById("myModal");
       modal.style.display = "block";
       const product = await findProductById(dataId);
-      console.log(product[0]);
       modalTemplate(product[0]);
 
       document.querySelector(".modal__close").addEventListener("click", () => {

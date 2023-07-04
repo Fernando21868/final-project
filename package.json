@@ -1,7 +1,7 @@
 {
-  "name": "outside",
+  "name": "meals",
   "version": "3.0.0",
-  "description": "Boilerplate for WDD 330 SleepOutside project",
+  "description": "Bountiful Meal for WDD 330 Final Project",
   "main": "main.js",
   "scripts": {
     "start": "vite",
@@ -10,9 +10,8 @@
     "lint": "eslint *.js src/**/*.js",
     "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
     "test": "jest"
-    
   },
-  "author": "Shane Thompson",
+  "author": "Arias Fernando Rene",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.26.0",
