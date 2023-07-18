@@ -13,6 +13,7 @@ import {
 
 let categoryParam = getParam("category");
 let listParam = getParam("list");
+let listMeals;
 
 function mealListTemplate(meal) {
   return `
@@ -33,7 +34,6 @@ function mealListTemplate(meal) {
 async function listOfMeals() {
   let mealListElement = document.querySelector(".search-category__list");
   const mealListInput = document.querySelector(".form-list__input");
-  let listMeals;
   if (getParam("name")) {
     categoryParam = "Name";
     listParam = "Name";
@@ -62,11 +62,55 @@ async function listOfMeals() {
   mealListInput.setAttribute("placeHolder", listParam);
   renderListWithTemplate(mealListTemplate, mealListElement, listMeals);
   quickView();
+  orderListMeals();
 }
-// http://localhost:5173/meal-list/index.html?category=Ingredient&list=Vermicelli%20Pasta
+
+function compare(a, b, attribute) {
+  if (a[attribute] < b[attribute]) {
+    return -1;
+  }
+  if (a[attribute] > b[attribute]) {
+    return 1;
+  }
+  return 0;
+}
+
+function orderList(list, orderAscDesc, idBtn) {
+  const order = orderAscDesc;
+  const id = idBtn;
+  const attribute = id == "sort-by-name" ? "strMeal" : "";
+  if (id == "sort-by-name" && order == "asc") {
+    return list.sort((a, b) => compare(a, b, attribute));
+  } else if (id === "sort-by-name" && order === "desc") {
+    return list.sort((a, b) => compare(b, a, attribute));
+  }
+}
+
+export function sortBy(option) {
+  let categoryList = document.querySelector(".search-category__list");
+  categoryList.innerHTML = "";
+  let button = document.querySelector(`#${option}`);
+  if (button.classList.contains("asc")) {
+    button.classList.remove("asc");
+    button.classList.add("desc");
+    const orderedList = orderList(listMeals, "asc", option);
+    renderListWithTemplate(mealListTemplate, categoryList, orderedList);
+  } else {
+    button.classList.remove("desc");
+    button.classList.add("asc");
+    const orderedList = orderList(listMeals, "desc", option);
+    renderListWithTemplate(mealListTemplate, categoryList, orderedList);
+  }
+}
+
+function orderListMeals() {
+  document.querySelector("#sort-by-name").addEventListener("click", () => {
+    sortBy("sort-by-name");
+  });
+}
+
 async function searchMeal(e) {
   e.preventDefault();
-  let listMeals;
   const categoryParamLetter = categoryParam[0].toLocaleLowerCase();
   const inputValue = document.querySelector(".form-list__input").value;
   let mealListElement = document.querySelector(".search-category__list");
